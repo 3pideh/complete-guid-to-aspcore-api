@@ -15,7 +15,7 @@ namespace my_book.Data.Services
             _dbContext = dbContext;
         }
 
-        public void AddPublisher(PublisherVM publisher)
+        public Publisher AddPublisher(PublisherVM publisher)
         {
             var _publisher = new Publisher()
             {
@@ -24,6 +24,8 @@ namespace my_book.Data.Services
 
             _dbContext.Add(_publisher);
             _dbContext.SaveChanges();
+
+            return _publisher;
         }
 
         public List<Publisher> GetAllPublishers() => _dbContext.Publishers.ToList();
@@ -61,8 +63,17 @@ namespace my_book.Data.Services
         public void DeletePublisherById(int publisherId)
         {
             var _publisher = _dbContext.Publishers.FirstOrDefault(c => c.Id == publisherId);
-            _dbContext.Remove(_publisher);
-            _dbContext.SaveChanges();
+
+            if (_publisher != null)
+            {
+                _dbContext.Remove(_publisher);
+                _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception($"The publisher with id {publisherId} does not exist"); 
+            }
+           
         }
     }
 }

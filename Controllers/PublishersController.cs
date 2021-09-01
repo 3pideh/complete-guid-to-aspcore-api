@@ -23,8 +23,15 @@ namespace my_book.Controllers
         [HttpPost("add-Publishers")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {
-            _publisherService.AddPublisher(publisher);
-            return Ok();
+            try
+            {
+                var newPublisher = _publisherService.AddPublisher(publisher);
+                return Created(nameof(AddPublisher), newPublisher);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("get-all-Publishers")]
@@ -44,8 +51,20 @@ namespace my_book.Controllers
         [HttpGet("get-Publisher-by-id/{id}")]
         public IActionResult GetPublisherById(int id)
         {
-            var Publisher = _publisherService.GetPublisherById(id);
-            return Ok(Publisher);
+            var _response = _publisherService.GetPublisherById(id);
+
+            if (_response != null)
+            {
+                return Ok(_response);
+            }
+            else
+            {
+                return NotFound();
+            }
+            //Exceptions : System exceptions.application exceptions
+            //common exception type
+            //NullRefrence , IndexOutOfRangeException,
+            //IOException,Stackoverflow,Outofmwmoryexception,invalidCastException
         }
 
         [HttpPut("update-Publisher-by-id/{id}")]
@@ -58,8 +77,15 @@ namespace my_book.Controllers
         [HttpDelete("delete-Publisher-by-id/{id}")]
         public IActionResult DeletePublisherById(int id)
         {
-            _publisherService.DeletePublisherById(id);
-            return Ok();
+            try
+            {
+                _publisherService.DeletePublisherById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
