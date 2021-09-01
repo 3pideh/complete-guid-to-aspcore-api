@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using my_book.Data.Services;
 using my_book.Data.ViewModels;
+using my_book.Exceptions;
 
 namespace my_book.Controllers
 {
@@ -27,6 +28,10 @@ namespace my_book.Controllers
             {
                 var newPublisher = _publisherService.AddPublisher(publisher);
                 return Created(nameof(AddPublisher), newPublisher);
+            }
+            catch(PublisherNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Publisher name : {ex.PublisherName}");
             }
             catch (Exception ex)
             {
