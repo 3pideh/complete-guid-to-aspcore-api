@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "M8tqX3MrqEV5VYZjRuqjVtKwFcQgeG+3SidhMmRW3/PhLE9ZPm4j2870jd9jC6YH0VQZdXXtj/lDuITlc9HuBg==",
+  "dgSpecHash": "qQCi7VmOgEKp7TZfU4kJ5iH+MF+//WtxDrEhEutje6GSu3UqdauQbf1V/rWhlijzM4HcWprCCXlZC0o90A/DFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.dalirpour\\source\\repos\\my-book\\my-book\\my-book.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\s.dalirpour\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0\\microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
     "C:\\Users\\s.dalirpour\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\s.dalirpour\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
     "C:\\Users\\s.dalirpour\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
