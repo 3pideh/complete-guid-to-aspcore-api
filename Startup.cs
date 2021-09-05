@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using my_book.Data;
 using my_book.Data.Models;
 using my_book.Data.Services;
+using my_book.Exceptions;
 
 namespace my_book
 {
@@ -40,7 +42,14 @@ namespace my_book
             services.AddTransient<BookService>();
             services.AddTransient<PublishersService>();
             services.AddTransient<AuthorsService>();
+            services.AddApiVersioning(config => {
+                config.DefaultApiVersion = new ApiVersion(1,0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
 
+                config.ApiVersionReader = new HeaderApiVersionReader("custom-version-header");
+               // config.ApiVersionReader = new MediaTypeApiVersionReader();
+
+            });
             services.AddSwaggerGen(c =>
            {
                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "mybook", Version = "v1" });
@@ -63,6 +72,9 @@ namespace my_book
 
             app.UseAuthorization();
 
+            //Exception Handling
+            app.ConfigureBuilderExceptionHandler();
+            //app.ConfigureCustomExceptionHandler();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
